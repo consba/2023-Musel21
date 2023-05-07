@@ -1,0 +1,16 @@
+import("stdfaust.lib");
+mel = library("21ME.lib");
+//matrice somma-sottrazione normalizzata
+nsum = +/(sqrt(2));
+ndif = -/(sqrt(2));
+sdmx = _,_ <: nsum,ndif;
+// process = os.osc(100),no.noise : seq(i,16,mel.sdmx);
+
+//pan midside
+mspan(p,a) = _ <: mid(p,a),side(a)
+  with {
+mid(p,a) = _*(1-p) + _*(p)*cos(a);
+side(a) = _*sin(a);
+};
+//p è il mid polar pattern, a è l'azimuth
+//process = os.osc(100) : mspan(p,a);
